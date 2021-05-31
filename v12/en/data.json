@@ -121,7 +121,7 @@
 							"section": "<span class='application'>BackendApplicationFlow</span> receives the XML message and stores the voting intention (A or B!) in an in-memory variable. The output message is given a field to represent the time at which the data was processed by carrying the current time value. The MQReply node at the end of the flow writes the message to the queue BACKEND.REPLY"
 						},
 						{
-							"section": "<span class='application'>ReplyFlow</span> parses the XML reply message, and uses its CorrelId to retrieve the original input message stored on <b>STORE.QUEUE</b> using an MQGet node, and combines the name of the voter with the ProcessingTime value that was returned by the back-end.  The reply message is returned back to the original requesting client over HTTP."
+							"section": "<span class='application'>ReplyFlow</span> parses the XML reply message, and uses its CorrelId to retrieve the original input message stored on <b>STORE.QUEUE</b> using an MQGet node in the subflow named <span class='application'>RetrieveOriginalMessage</span>, and combines the name of the voter with the ProcessingTime value that was returned by the back-end.  The reply message is returned back to the original requesting client over HTTP."
 						},
                         {
 			    			"section": "Once imported using the link on the right, the application <span class='application'>CoordinatedRequestReplyTutorial</span> is ready to be deployed and tested. Before doing this, we will configure an integration node using the instructions on the Prepare tab."
@@ -233,10 +233,10 @@
                                           "details": "Click the Flow Exerciser icon <img src='http://ot4i.github.io/ot4i.tutorials//dist/images/icons/iib/startFlowExerciser.png' alt='' /> to start testing the flow (when challenged you do not need to redeploy the flow again)."
                                         },
 										{										
-										"details":"Click the Send Message icon <img src='http://ot4i.github.io/iib-tutorials/images/icons/iib/sendMessage.png' alt='' /> to select a message to send to the flow. Choose <b>VoteA</b>. The message data looks like this:<br><br><code>{<br>&nbsp;&nbsp;\"VoterName\": \"Joe Bloggs\",<br>&nbsp;\"VoterAddress\":\"Hursley Park Southampton SO21 2JN\",<br>&nbsp;\"VotingIntention\": \"A\"<br>}<br></code>"
+										"details":"Click the Send Message icon <img src='http://ot4i.github.io/iib-tutorials/images/icons/iib/sendMessage.png' alt='' /> to select a message to send to the flow. Choose <b>VoteA</b>. The message data looks like this:<br><br><code>{<br>&nbsp;&nbsp;\"VoterName\": \"Joe Bloggs\",<br>&nbsp;&nbsp;\"VoterAddress\":\"Hursley Park Southampton SO21 2JN\",<br>&nbsp;&nbsp;\"VotingIntention\": \"A\"<br>}<br></code>"
 										},
 										{										
-										"details":"The HTTP Reply message will look like this:<br><code>{<br>&nbsp;&nbsp;\"Reply\": \"Thank you Joe Bloggs for voting. Your intention has been successfully registered! It was processed at 20:38:32\"<br>}<br></code>. This scenario needs no further MQ output, so you can safely ignore the Listening for response status message and just click Close."
+										"details":"The HTTP Reply message will look like this:<br><code>{<br>&nbsp;&nbsp;\"Reply\": \"Thank you Joe Bloggs for voting. Your intention has been successfully registered! It was processed at 20:38:32\"<br>}</code><br>This scenario needs no further MQ output, so you can safely ignore the Listening for response status message and just click Close."
 										}									
                                         ]
                                         }
